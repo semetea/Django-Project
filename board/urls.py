@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.urls import path
 from . import views
 
@@ -9,5 +10,7 @@ urlpatterns = [
     path('create/', views.create, name="create"),
     path('update/<bpk>' , views.update, name="update"),
     path('creply/<bpk>', views.creply, name="creply"),
-    path('dreply/<bpk>/<rpk>', views.dreply, name="dreply")
+    path('dreply/<bpk>/<rpk>', views.dreply, name="dreply"),
+    path('likey/<bpk>', views.likey, name="likey"),
+    path('dlikey/<bpk>', views.unlikey, name="unlikey")
 ]

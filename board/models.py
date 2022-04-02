@@ -16,6 +16,11 @@ class Board(models.Model) :
         if len(self.content) > 100:
             return f"{self.content[:100]} ..."
         return self.content
+    
+    def hot(self):
+        if self.likey.all().count() > 2:
+            return True
+        return False
 
 class Reply(models.Model):
     board = models.ForeignKey(Board, on_delete=models.CASCADE)

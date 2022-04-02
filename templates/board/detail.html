@@ -29,6 +29,20 @@
         {% endif %}
     </div>
 
+    <div class="text-end mt-4">
+        {% if b.likey %}
+            {% for i in b.likey.all %}
+                {{i}}
+            {% endfor %}
+            님이 좋아합니다
+        {% endif %}
+        {% if user in b.likey.all %}
+            <a href="{% url 'board:unlikey' b.id%}" class="btn btn-danger">좋아요 취소</a>
+        {% else %}
+            <a href="{% url 'board:likey' b.id%}" class="btn btn-primary">좋아요</a>
+        {% endif %}
+    </div>
+
     <hr>
     <form method="post" action="{% url 'board:creply' b.id %}">
         {% csrf_token %}

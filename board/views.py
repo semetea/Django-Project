@@ -99,3 +99,13 @@ def dreply(request, bpk, rpk) :
     else :
         pass # 마지막
     return redirect("board:detail", bpk)
+
+def likey(request, bpk) :
+    b = Board.objects.get(id=bpk)
+    b.likey.add(request.user) # likey가 user 레코드들의 세트로 관리된다.
+    return redirect("board:detail", bpk)
+
+def unlikey(request, bpk) :
+    b = Board.objects.get(id=bpk)
+    b.likey.remove(request.user)
+    return redirect("board:detail", bpk)
