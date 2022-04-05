@@ -12,7 +12,7 @@ def index(request):
     
     if kw:
         if cate == "sub":
-            b = Board.objects.filter(subject__startswith=kw)
+            b = Board.objects.filter(subject__contains=kw)
         elif cate == "wri" :
             from acc.models import User
             try :
@@ -82,9 +82,6 @@ def detail(request, bpk):
         "rset":r
     }
     return render(request, "board/detail.html", context)
-
-
-
 
 def creply(request, bpk):
     b = Board.objects.get(id=bpk)

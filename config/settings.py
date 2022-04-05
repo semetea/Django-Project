@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'acc.apps.AccConfig',
     'board.apps.BoardConfig',
+    'vote.apps.VoteConfig',
     'mathfilters'
 ]
 AUTH_USER_MODEL = "acc.User"
