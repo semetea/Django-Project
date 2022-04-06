@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'acc.apps.AccConfig',
     'board.apps.BoardConfig',
     'vote.apps.VoteConfig',
+    'book.apps.BookConfig',
     'mathfilters'
 ]
 AUTH_USER_MODEL = "acc.User"

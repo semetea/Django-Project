@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from .models import User
 from django.contrib.auth.hashers import check_password
+from django.contrib import messages
 
 # Create your views here.
 def index(request) :
@@ -14,9 +15,10 @@ def login_user(request) :
         user = authenticate(username=un, password=up)
         if user :
             login(request, user)
+            messages.success(request, f"WELCOME {user}")
             return redirect('acc:index')
         else :
-            pass # 마지막날
+            messages.error(request, "계정정보가 일치하지 않습니다!")
     return render(request, "acc/login.html")
 
 def logout_user(request) :
@@ -29,10 +31,13 @@ def signup(request) :
         up = request.POST.get("upass")
         uc = request.POST.get("ucom")
         upic = request.FILES.get("upic")
-        User.objects.create_user(username=un, password=up, comment=uc,pic=upic)
-        return redirect('acc:login')
-        
-    return render(request, "acc/signup.html")
+        try:
+            User.objects.create_user(username=un, password=up,
+            comment=uc, pic=upic)
+            return redirect("acc:login")
+        except:
+            messages.error(request, "중복된 계정이 있습니다")
+    return render(request, 'acc/signup.html')
 
 def profile(request) :
     return render(request, 'acc/profile.html')
@@ -45,7 +50,7 @@ def delete(request) :
         u.delete()
         return redirect("acc:index")
     else :
-        pass
+        messages.info(request, "패스워드가 일치하지 않아 삭제되지 않았습니다")
         return redirect("acc:profile")
 
     return redirect("acc:index")

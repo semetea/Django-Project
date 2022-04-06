@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Board, Reply
 from django.utils import timezone
 from django.core.paginator import Paginator
+from django.contrib import messages
 
 # Create your views here.
 
@@ -24,7 +25,7 @@ def index(request):
             b = Board.objects.filter(content__contains=kw)
         else :
             b = Board.objects.none()
-            # 마지막
+            messages.warning(request, "법적 조치 가하겠음")
     else :
         b = Board.objects.all()
 
@@ -71,7 +72,7 @@ def delete(request, bpk):
     if b.writer == request.user:
         b.delete()
     else:
-        pass # 마지막
+       pass
     return redirect("board:index")
 
 def detail(request, bpk):
